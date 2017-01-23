@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{A65DDF93-3933-49AF-B36C-972CEA4DE936}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBot", "src\DiscordBot\DiscordBot.csproj", "{A65DDF93-3933-49AF-B36C-972CEA4DE936}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{4839E5E6-21D1-409B-85DE-F027BCCC6B0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegdayBot", "src\RollinBot\LegdayBot.csproj", "{AFCA2114-37EA-4FB3-B20E-32854F0AF425}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "src\TestConsole\TestConsole.csproj", "{4839E5E6-21D1-409B-85DE-F027BCCC6B0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{49977B97-ECE8-4BB3-92E7-1651B0455569}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9E323D59-BC7B-446E-A32E-D73D2073D291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +29,14 @@ Global
 		{A65DDF93-3933-49AF-B36C-972CEA4DE936}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A65DDF93-3933-49AF-B36C-972CEA4DE936}.Release|x86.ActiveCfg = Release|x86
 		{A65DDF93-3933-49AF-B36C-972CEA4DE936}.Release|x86.Build.0 = Release|x86
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Debug|x86.Build.0 = Debug|Any CPU
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Release|x86.ActiveCfg = Release|Any CPU
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425}.Release|x86.Build.0 = Release|Any CPU
 		{4839E5E6-21D1-409B-85DE-F027BCCC6B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4839E5E6-21D1-409B-85DE-F027BCCC6B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4839E5E6-21D1-409B-85DE-F027BCCC6B0A}.Debug|x86.ActiveCfg = Debug|x86
@@ -34,5 +48,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A65DDF93-3933-49AF-B36C-972CEA4DE936} = {49977B97-ECE8-4BB3-92E7-1651B0455569}
+		{AFCA2114-37EA-4FB3-B20E-32854F0AF425} = {49977B97-ECE8-4BB3-92E7-1651B0455569}
+		{4839E5E6-21D1-409B-85DE-F027BCCC6B0A} = {49977B97-ECE8-4BB3-92E7-1651B0455569}
 	EndGlobalSection
 EndGlobal
