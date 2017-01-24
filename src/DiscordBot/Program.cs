@@ -16,8 +16,6 @@ namespace DiscordBot
     using System.IO;
     using System.Threading;
 
-    //Client ID: 261865736622964736
-    //Client Secret: 0Tg-T3uSJnYDRQdsQ_WL1rEvwMKbpQqA
     public class Program : IObservable<Message>
     {
         public DiscordClient Client;
