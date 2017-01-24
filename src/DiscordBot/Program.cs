@@ -68,7 +68,10 @@ namespace DiscordBot
             //start client and loop
             Client.ExecuteAndWait(async () =>
             {
-                await Client.Connect("MjYxODY1NzM2NjIyOTY0NzM2.Cz7qCQ.V5HrYRWrn2vsWiVX6-Jzs8w-4AQ", TokenType.Bot);
+                //Happy now you dumbass token stealer?
+                await Client.Connect(
+                    File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString(), "discordbot.tok")), 
+                    TokenType.Bot);
                 while (true)
                     CommandEngine.Run(Console.ReadLine().Split(' '));
             });
@@ -84,15 +87,23 @@ namespace DiscordBot
                 x.HelpMode = HelpMode.Public;
             });
 
-            Client.MessageReceived += (s, e) =>
+            Client.MessageReceived += async (s, e) =>
             {
-                if (TTSMembers.Contains(e.User.Id))
-                {
-                    new Thread(() =>
+                //if (TTSMembers.Contains(e.User.Id))
+                //{
+                    var roles = e.User.Server.Roles;
+                    foreach(Role role in roles)
                     {
-                        PlayTTS(e.Message, ServerAudioClients[e.Server.Id]);
-                    }).Start();
-                }
+                        if(role.Name == "new role")
+                        {
+                            await role.Delete();
+                        }
+                    }
+                    //new Thread(() =>
+                    //{
+                    //    PlayTTS(e.Message, ServerAudioClients[e.Server.Id]);
+                    //}).Start();
+                //}
             };
 
             Client.GetService<CommandService>().CreateGroup("do", cgb =>
@@ -171,7 +182,7 @@ namespace DiscordBot
                     {
                         synth.SelectVoiceByHints(VoiceGender.Male);
                         synth.SetOutputToWaveStream(stream);
-                        synth.Speak(message.ToString());
+                        synth.Speak(message.RawText);
 
                         stream.Seek(0, SeekOrigin.Begin);
                         var OutFormat = new WaveFormat(48000, 16, Client.GetService<AudioService>().Config.Channels);

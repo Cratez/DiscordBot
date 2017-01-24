@@ -109,12 +109,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Console\Commands.cs" />
+    <Compile Include="Console\ConsoleCommandBuilder.cs" />
     <Compile Include="Console\ConsoleEngine.cs" />
     <Compile Include="Console\IConsoleCommand.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="MessageListeners\MessageListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SpeechEngine.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +124,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(SolutionDir)\Dependencies\*" $(ProjectDir)$(OutDir)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

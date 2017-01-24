@@ -18,21 +18,45 @@ namespace DiscordBot
 
     //Client ID: 261865736622964736
     //Client Secret: 0Tg-T3uSJnYDRQdsQ_WL1rEvwMKbpQqA
-    public class Program
+    public class Program : IObservable<Message>
     {
         public DiscordClient Client;
         private ConsoleCommands CommandEngine;
         private Dictionary<ulong, IAudioClient> ServerAudioClients;
         private HashSet<ulong> TTSMembers;
-        private List<MessageListener> Listeners;
+        private List<IObserver<Message>> observers;
 
-        private List<string> _Admins;
+        private class Unsubscriber : IDisposable
+        {
+            private List<IObserver<Message>> _observers;
+            private IObserver<Message> _observer;
+
+            public Unsubscriber(List<IObserver<Message>> observers, IObserver<Message> observer)
+            {
+                this._observers = observers;
+                this._observer = observer;
+            }
+
+            public void Dispose()
+            {
+                if (!(_observer == null)) _observers.Remove(_observer);
+            }
+        }
+
+        public IDisposable Subscribe(IObserver<Message> observer)
+        {
+            if (!observers.Contains(observer))
+                observers.Add(observer);
+
+            return new Unsubscriber(observers, observer);
+        }
 
         static void Main(string[] args) => new Program().Start(args);
-
+ 
         private void Start(string[] args)
         {
-            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionTrapper;
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionTrapper;
+            observers = new List<IObserver<Message>>();
             Client = new DiscordClient();
             CommandEngine = new ConsoleCommands(this);
             ServerAudioClients = new Dictionary<ulong, IAudioClient>();
@@ -53,11 +77,10 @@ namespace DiscordBot
         //client configuration methods -- commands, etc...
         private void Configure()
         {
-
             Client.UsingAudio(x => x.Mode = AudioMode.Outgoing);
             Client.UsingCommands(x =>
             {
-                x.PrefixChar = '$';
+                x.PrefixChar = '.';
                 x.HelpMode = HelpMode.Public;
             });
 
@@ -137,6 +160,7 @@ namespace DiscordBot
         }
 
         object TTSLock = new object();
+
         private void PlayTTS(Message message, IAudioClient aclient)
         {
             lock (TTSLock)

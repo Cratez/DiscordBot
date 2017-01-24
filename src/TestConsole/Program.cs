@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Speech;
-using Microsoft.Speech.Synthesis;
+using Bot;
 
 namespace TestConsole
 {
@@ -12,8 +12,7 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-
-
+            LegdayBot bot = new LegdayBot();
         }
     }
 }

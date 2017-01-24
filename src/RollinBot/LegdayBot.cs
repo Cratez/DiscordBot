@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.Audio;
+using System.IO;
+using Newtonsoft.Json;
+
 
 namespace Bot
 {
-    class LegdayBot : DiscordClient, IObservable<Message>{
+    class ChannelBackup
+    {
+
+    }
+
+    public class LegdayBot : DiscordClient, IObservable<Message> {
         private List<IObserver<Message>> observers;
         private Dictionary<ulong, IAudioClient> ServerAudioClients;
 
@@ -17,11 +25,29 @@ namespace Bot
         {
             observers = new List<IObserver<Message>>();
             Configure();
+
         }
 
         private void Configure()
         {
-            //TODO
+            AddService<CommandService>();
+            MessageReceived += (object o, MessageEventArgs e) =>
+            {
+                Server s = e.Server;
+                var permissions = s.AllChannels.FirstOrDefault();
+
+
+                File.WriteAllText("data.json", JsonConvert.SerializeObject(permissions.PermissionOverwrites));
+                var pover = permissions.PermissionOverwrites.FirstOrDefault();
+                //Channel.PermissionOverwrite t = new Channel.PermissionOverwrite
+
+
+                var backup = JsonConvert.DeserializeObject<Discord.Channel.PermissionOverwrite>(File.ReadAllText("data.json"));
+                //permissions.AddPermissionsRule()
+                //File.WriteAllText("data.json", JsonConvert.SerializeObject(channels));
+                //File.WriteAllText("data.json",JsonConvert.SerializeObject(s).ToString());
+            };
+
             GetService<CommandService>().CreateGroup("do", cgb =>
             {
                 cgb.CreateCommand("join")
@@ -47,7 +73,11 @@ namespace Bot
 
             ExecuteAndWait(async () =>
             {
-                await Connect("MjYxODY1NzM2NjIyOTY0NzM2.Cz7qCQ.V5HrYRWrn2vsWiVX6-Jzs8w-4AQ", TokenType.Bot);
+                await Connect(
+                    //Happy now you dumbass token stealer?
+                    File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() , "discordbot.tok")), 
+                    TokenType.Bot);
+
                 while (true)
                 {
                     //CommandEngine.Run(Console.ReadLine().Split(' '));
@@ -56,6 +86,7 @@ namespace Bot
                 }
             });
         }
+
 
         #region IObservable implementation
         public IDisposable Subscribe(IObserver<Message> observer)

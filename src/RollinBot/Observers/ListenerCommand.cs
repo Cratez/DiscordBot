@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBot
+namespace Bot.Observers
 {
-    class SpeechEngine
+    interface ListenerCommand
     {
-
-
+        string Command { get; set; }
+        string Group { get; set; }
     }
 }

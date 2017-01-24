@@ -8,16 +8,6 @@ namespace Bot.AudioEngine
 {
     public class AudioEngine
     {
-        List<uint> TTSMembers = new List<uint>();
 
-        void AddTTSMember(uint member)
-        {
-
-        }
-
-        void RemoveTTSMember(uint member)
-        {
-
-        }
     }
 }

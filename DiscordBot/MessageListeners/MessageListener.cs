@@ -8,26 +8,33 @@ namespace DiscordBot
 {
     using Discord;
 
-    public class MessageEventArgs : EventArgs
+    public abstract class MessageListener : IObserver<Message>
     {
-        public Message Message { get; set; } = null;
+        private IDisposable unsubscriber;
+        private Message last;
 
-        public MessageEventArgs() { }
-        public MessageEventArgs(Message message) { Message = message; }
-    }
 
-    public delegate void MessageEventHandler(object sender, MessageEventArgs e);
-    public abstract class MessageListener
-    {
-        //public event 
-        public MessageListener(){}
+        public void OnCompleted()
+        {
+            //free resources?
+        }
 
-        public abstract void OnMessage(object caller, Message message);
+        public void OnError(Exception error)
+        {
+            //do nothing
+        }
+
+        public abstract void OnNext(Message message);
+
+        public virtual void Unsubscribe()
+        {
+            unsubscriber.Dispose();
+        }
     }
 
     public class TTSListener : MessageListener
     {
-        public override void OnMessage(object caller, Message message)
+        public override void OnNext(Message message)
         {
             throw new NotImplementedException();
         }

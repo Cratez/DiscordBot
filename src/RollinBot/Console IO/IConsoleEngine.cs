@@ -19,7 +19,7 @@ namespace Bot.Console_IO
         {
             Client = client;
             Commands = new List<IConsoleCommand>();
-            Commands.Add(new DefaultCommand { Action = () => { System.Console.WriteLine("Hello world"); }, Command = "HW" });
+            //Commands.Add(new DefaultCommand { Action = () => { System.Console.WriteLine("Hello world"); }, Command = "HW" });
         }
 
         public void AddCommand(IConsoleCommand cmd)

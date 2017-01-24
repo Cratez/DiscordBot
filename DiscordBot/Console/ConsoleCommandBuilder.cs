@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiscordBot
 {
-    class SpeechEngine
+    class ConsoleCommandBuilder
     {
-
-
     }
 }
